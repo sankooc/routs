@@ -1,15 +1,17 @@
 {
   "name": "routs",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": { "ng1" : "./bin/ng1.js" },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "co": "^4.6.0",
+    "escodegen": "^1.8.1",
     "express": "^4.15.3",
     "lodash": "^4.17.4",
     "validatez": "^1.2.0"
