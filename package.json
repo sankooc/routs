@@ -7,8 +7,12 @@
     "test": "mocha"
   },
   "bin": { "ng1" : "./bin/ng1.js" },
-  "author": "",
+  "author": "sankooc",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sankooc/routs.git"
+  },
   "dependencies": {
     "co": "^4.6.0",
     "escodegen": "^1.8.1",
