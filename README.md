@@ -16,10 +16,31 @@
 
 ## 配置
 
-[demo](example)
+简单示例:  [demo](example)
 
 yoeman scaffold: [asn](https://github.com/sankooc/generator-asn)
 
+
+### 开始
+
+```
+const express = require('express');
+const mroute = require('routs');
+const app = express();
+
+mroute.express(app, routerConfig, {
+  routes,
+  filters,
+  validators,
+  suffixs,
+});
+// routerConfig 路由配置文件
+// routes: routing
+// filters: 过滤器
+// validators: 请求验证
+// suffixs: 响应封装
+
+```
 
 ### 路由配置
 
@@ -66,9 +87,41 @@ yoeman scaffold: [asn](https://github.com/sankooc/generator-asn)
 生成模板服务时alias必须设置
 
 
+### 请求验证
+
+请求验证格式通过[validatez](https://github.com/sankooc/validatez)实现
+
+### 过滤器
+
+提供request,response. 返回结果通过co模块处理 
+
+### routing
+
+提供request,response. 返回结果通过co模块处理 
+
 
 ## 生成模板代码
 
 ### angular1 service
 
 ` ng1 [config file] [folder] `
+
+
+
+## 工具方法
+
+express中间件集成转换
+
+```
+
+const mroute = require('routs');
+
+const mid = (req, res, next) => { ... } //express midware
+exports.mid = mroute.swap(mid); // convert to routs-filter
+
+```
+
+## change log
+
+### 1.03
+ - 生成模板代码时alias字段成为可选项

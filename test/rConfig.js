@@ -16,6 +16,11 @@ module.exports = {
           method: 'post',
         },
         {
+          desc: 'print something2',
+          path: '/:named',
+          method: 'post',
+        },
+        {
           path: '/admin',
           routes: [
             {
