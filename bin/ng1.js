@@ -4,6 +4,20 @@ const escodegen = require('escodegen');
 const u = require('./util');
 const fs = require('fs');
 const path = require('path');
+const chalk = require('chalk');
+
+const OPTION = {
+  comment: true,
+  format: {
+    indent: {
+      style: '  ',
+      base: 0,
+      adjustMultilineComment: false,
+    },
+  },
+};
+
+const _generate = meta => escodegen.generate(meta, OPTION);
 
 const wrap = (route) => {
   const { method, desc, alias } = route;
@@ -220,33 +234,43 @@ const generate = (angConf) => {
       arguments: [serviceName, service],
     },
   });
-  return escodegen.generate(meta, { comment: true });
+  return _generate(meta);
 };
 
 const start = () => {
   if (process.argv.length < 4) {
-    throw Error('arge');
+    throw new Error('arge');
   }
   const __path = path.resolve(process.argv[2]);
 
   const __target = path.resolve(process.argv[3]);
 
   if (!fs.existsSync(__path)) {
-    throw Error(`config file not exist: ${__path}`);
+    throw new Error(`config file not exist: ${__path}`);
   }
-
+  console.log('\r');
   if (!fs.existsSync(__target)) {
+    console.log(chalk`  create ng-service folder: {green.bold ${__target}}`);
     fs.mkdirSync(__target);
+  } else {
+    console.log(chalk`  ng-service folder: {green.bold ${__target}}`);
   }
   const rc = require(__path);
   const rcons = u.parseRoute(rc);
+  const indexContent = u.base();
   for (const conf of rcons) {
     const content = generate(conf);
     const _path = path.join(__target, `${conf.name}_gen.js`);
     fs.writeFileSync(_path, content);
+    console.log(chalk`  create service [ {blue.bold $${conf.name}Service} ]: {yellow.bold ${_path}}`);
+    indexContent.body.push(u.defRequire(`./${conf.name}_gen.js`));
   }
+  const inxPath = path.join(__target, 'index.js');
+  if (!fs.existsSync(inxPath)) {
+    console.log(chalk`  create index {yellow.bold ${inxPath}}`);
+    fs.writeFileSync(inxPath, _generate(indexContent));
+  }
+  console.log('\r');
 };
 
 start();
-
-// console.log(generate(conf));

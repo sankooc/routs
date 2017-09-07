@@ -20,6 +20,7 @@ module.exports = {
     {
       path: '/excel',
       match: 'print',
+      alias: 'user.excel',
       ext: 'excel',
     },
   ],
