@@ -69,7 +69,11 @@ exports.parseParams = (path) => {
 };
 
 const _parse = (route, parent) => {
-  const { alias, desc, path, routes } = route;
+  const { alias, desc, routes } = route;
+  let path = route.path;
+  if (path === '/') {
+    path = '';
+  }
   if (!alias && !routes) {
     return null;
   }

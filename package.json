@@ -1,13 +1,15 @@
 {
   "name": "routs",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "mocha"
   },
   "bin": {
-    "ng1": "./bin/ng1.js"
+    "ng1": "./bin/ng1.js",
+    "routs-ng1": "./bin/ng1.js",
+    "routs-es6": "./bin/es6.js"
   },
   "author": "sankooc",
   "license": "ISC",
